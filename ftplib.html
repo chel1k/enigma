@@ -1,0 +1,475 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ftplib</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ftplib</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:///C:/python27/lib/ftplib.py">c:\python27\lib\ftplib.py</a></font></td></tr></table>
+    <p><tt>An&nbsp;<a href="#FTP">FTP</a>&nbsp;client&nbsp;class&nbsp;and&nbsp;some&nbsp;helper&nbsp;functions.<br>
+&nbsp;<br>
+Based&nbsp;on&nbsp;<a href="http://www.rfc-editor.org/rfc/rfc959.txt">RFC&nbsp;959</a>:&nbsp;File&nbsp;Transfer&nbsp;Protocol&nbsp;(<a href="#FTP">FTP</a>),&nbsp;by&nbsp;J.&nbsp;Postel&nbsp;and&nbsp;J.&nbsp;Reynolds<br>
+&nbsp;<br>
+Example:<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;from&nbsp;ftplib&nbsp;import&nbsp;<a href="#FTP">FTP</a><br>
+&gt;&gt;&gt;&nbsp;ftp&nbsp;=&nbsp;<a href="#FTP">FTP</a>('ftp.python.org')&nbsp;#&nbsp;connect&nbsp;to&nbsp;host,&nbsp;default&nbsp;port<br>
+&gt;&gt;&gt;&nbsp;ftp.login()&nbsp;#&nbsp;default,&nbsp;i.e.:&nbsp;user&nbsp;anonymous,&nbsp;passwd&nbsp;anonymous@<br>
+'230&nbsp;Guest&nbsp;login&nbsp;ok,&nbsp;access&nbsp;restrictions&nbsp;apply.'<br>
+&gt;&gt;&gt;&nbsp;ftp.retrlines('LIST')&nbsp;#&nbsp;list&nbsp;directory&nbsp;contents<br>
+total&nbsp;9<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;8&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;.<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;8&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;..<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;2&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;bin<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;2&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;etc<br>
+d-wxrwxr-x&nbsp;&nbsp;&nbsp;2&nbsp;ftp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Sep&nbsp;&nbsp;5&nbsp;13:43&nbsp;incoming<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;2&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Nov&nbsp;17&nbsp;&nbsp;1993&nbsp;lib<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;6&nbsp;1094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Sep&nbsp;13&nbsp;19:07&nbsp;pub<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;3&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;usr<br>
+-rw-r--r--&nbsp;&nbsp;&nbsp;1&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;312&nbsp;Aug&nbsp;&nbsp;1&nbsp;&nbsp;1994&nbsp;welcome.msg<br>
+'226&nbsp;Transfer&nbsp;complete.'<br>
+&gt;&gt;&gt;&nbsp;ftp.quit()<br>
+'221&nbsp;Goodbye.'<br>
+&gt;&gt;&gt;<br>
+&nbsp;<br>
+A&nbsp;nice&nbsp;test&nbsp;that&nbsp;reveals&nbsp;some&nbsp;of&nbsp;the&nbsp;network&nbsp;dialogue&nbsp;would&nbsp;be:<br>
+python&nbsp;ftplib.py&nbsp;-d&nbsp;localhost&nbsp;-l&nbsp;-p&nbsp;-l</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="socket.html">socket</a><br>
+</td><td width="25%" valign=top><a href="ssl.html">ssl</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="ftplib.html#FTP">FTP</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ftplib.html#FTP_TLS">FTP_TLS</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="ftplib.html#Netrc">Netrc</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FTP">class <strong>FTP</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>An&nbsp;<a href="#FTP">FTP</a>&nbsp;client&nbsp;class.<br>
+&nbsp;<br>
+To&nbsp;create&nbsp;a&nbsp;connection,&nbsp;call&nbsp;the&nbsp;class&nbsp;using&nbsp;these&nbsp;arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host,&nbsp;user,&nbsp;passwd,&nbsp;acct,&nbsp;timeout<br>
+&nbsp;<br>
+The&nbsp;first&nbsp;four&nbsp;arguments&nbsp;are&nbsp;all&nbsp;strings,&nbsp;and&nbsp;have&nbsp;default&nbsp;value&nbsp;''.<br>
+timeout&nbsp;must&nbsp;be&nbsp;numeric&nbsp;and&nbsp;defaults&nbsp;to&nbsp;None&nbsp;if&nbsp;not&nbsp;passed,<br>
+meaning&nbsp;that&nbsp;no&nbsp;timeout&nbsp;will&nbsp;be&nbsp;set&nbsp;on&nbsp;any&nbsp;ftp&nbsp;socket(s)<br>
+If&nbsp;a&nbsp;timeout&nbsp;is&nbsp;passed,&nbsp;then&nbsp;this&nbsp;is&nbsp;now&nbsp;the&nbsp;default&nbsp;timeout&nbsp;for&nbsp;all&nbsp;ftp<br>
+socket&nbsp;operations&nbsp;for&nbsp;this&nbsp;instance.<br>
+&nbsp;<br>
+Then&nbsp;use&nbsp;<a href="#FTP-connect">connect</a>()&nbsp;with&nbsp;optional&nbsp;host&nbsp;and&nbsp;port&nbsp;argument.<br>
+&nbsp;<br>
+To&nbsp;download&nbsp;a&nbsp;file,&nbsp;use&nbsp;ftp.<a href="#FTP-retrlines">retrlines</a>('RETR&nbsp;'&nbsp;+&nbsp;filename),<br>
+or&nbsp;ftp.<a href="#FTP-retrbinary">retrbinary</a>()&nbsp;with&nbsp;slightly&nbsp;different&nbsp;arguments.<br>
+To&nbsp;upload&nbsp;a&nbsp;file,&nbsp;use&nbsp;ftp.<a href="#FTP-storlines">storlines</a>()&nbsp;or&nbsp;ftp.<a href="#FTP-storbinary">storbinary</a>(),<br>
+which&nbsp;have&nbsp;an&nbsp;open&nbsp;file&nbsp;as&nbsp;argument&nbsp;(see&nbsp;their&nbsp;definitions<br>
+below&nbsp;for&nbsp;details).<br>
+The&nbsp;download/upload&nbsp;functions&nbsp;first&nbsp;issue&nbsp;appropriate&nbsp;TYPE<br>
+and&nbsp;PORT&nbsp;or&nbsp;PASV&nbsp;commands.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FTP-__init__"><strong>__init__</strong></a>(self, host<font color="#909090">=''</font>, user<font color="#909090">=''</font>, passwd<font color="#909090">=''</font>, acct<font color="#909090">=''</font>, timeout<font color="#909090">=&lt;object object&gt;</font>)</dt><dd><tt>#&nbsp;Initialization&nbsp;method&nbsp;(called&nbsp;by&nbsp;class&nbsp;instantiation).<br>
+#&nbsp;Initialize&nbsp;host&nbsp;to&nbsp;localhost,&nbsp;port&nbsp;to&nbsp;standard&nbsp;ftp&nbsp;port<br>
+#&nbsp;Optional&nbsp;arguments&nbsp;are&nbsp;host&nbsp;(for&nbsp;<a href="#FTP-connect">connect</a>()),<br>
+#&nbsp;and&nbsp;user,&nbsp;passwd,&nbsp;acct&nbsp;(for&nbsp;<a href="#FTP-login">login</a>())</tt></dd></dl>
+
+<dl><dt><a name="FTP-abort"><strong>abort</strong></a>(self)</dt><dd><tt>Abort&nbsp;a&nbsp;file&nbsp;transfer.&nbsp;&nbsp;Uses&nbsp;out-of-band&nbsp;data.<br>
+This&nbsp;does&nbsp;not&nbsp;follow&nbsp;the&nbsp;procedure&nbsp;from&nbsp;the&nbsp;RFC&nbsp;to&nbsp;send&nbsp;Telnet<br>
+IP&nbsp;and&nbsp;Synch;&nbsp;that&nbsp;doesn't&nbsp;seem&nbsp;to&nbsp;work&nbsp;with&nbsp;the&nbsp;servers&nbsp;I've<br>
+tried.&nbsp;&nbsp;Instead,&nbsp;just&nbsp;send&nbsp;the&nbsp;ABOR&nbsp;command&nbsp;as&nbsp;OOB&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="FTP-acct"><strong>acct</strong></a>(self, password)</dt><dd><tt>Send&nbsp;new&nbsp;account&nbsp;name.</tt></dd></dl>
+
+<dl><dt><a name="FTP-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;the&nbsp;connection&nbsp;without&nbsp;assuming&nbsp;anything&nbsp;about&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="FTP-connect"><strong>connect</strong></a>(self, host<font color="#909090">=''</font>, port<font color="#909090">=0</font>, timeout<font color="#909090">=-999</font>)</dt><dd><tt>Connect&nbsp;to&nbsp;host.&nbsp;&nbsp;Arguments&nbsp;are:<br>
+-&nbsp;host:&nbsp;hostname&nbsp;to&nbsp;connect&nbsp;to&nbsp;(string,&nbsp;default&nbsp;previous&nbsp;host)<br>
+-&nbsp;port:&nbsp;port&nbsp;to&nbsp;connect&nbsp;to&nbsp;(integer,&nbsp;default&nbsp;previous&nbsp;port)</tt></dd></dl>
+
+<dl><dt><a name="FTP-cwd"><strong>cwd</strong></a>(self, dirname)</dt><dd><tt>Change&nbsp;to&nbsp;a&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="FTP-debug"><strong>debug</strong></a> = <a href="#FTP-set_debuglevel">set_debuglevel</a>(self, level)</dt></dl>
+
+<dl><dt><a name="FTP-delete"><strong>delete</strong></a>(self, filename)</dt><dd><tt>Delete&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="FTP-dir"><strong>dir</strong></a>(self, *args)</dt><dd><tt>List&nbsp;a&nbsp;directory&nbsp;in&nbsp;long&nbsp;form.<br>
+By&nbsp;default&nbsp;list&nbsp;current&nbsp;directory&nbsp;to&nbsp;stdout.<br>
+Optional&nbsp;last&nbsp;argument&nbsp;is&nbsp;callback&nbsp;function;&nbsp;all<br>
+non-empty&nbsp;arguments&nbsp;before&nbsp;it&nbsp;are&nbsp;concatenated&nbsp;to&nbsp;the<br>
+LIST&nbsp;command.&nbsp;&nbsp;(This&nbsp;*should*&nbsp;only&nbsp;be&nbsp;used&nbsp;for&nbsp;a&nbsp;pathname.)</tt></dd></dl>
+
+<dl><dt><a name="FTP-getline"><strong>getline</strong></a>(self)</dt><dd><tt>#&nbsp;Internal:&nbsp;return&nbsp;one&nbsp;line&nbsp;from&nbsp;the&nbsp;server,&nbsp;stripping&nbsp;CRLF.<br>
+#&nbsp;Raise&nbsp;EOFError&nbsp;if&nbsp;the&nbsp;connection&nbsp;is&nbsp;closed</tt></dd></dl>
+
+<dl><dt><a name="FTP-getmultiline"><strong>getmultiline</strong></a>(self)</dt><dd><tt>#&nbsp;Internal:&nbsp;get&nbsp;a&nbsp;response&nbsp;from&nbsp;the&nbsp;server,&nbsp;which&nbsp;may&nbsp;possibly<br>
+#&nbsp;consist&nbsp;of&nbsp;multiple&nbsp;lines.&nbsp;&nbsp;Return&nbsp;a&nbsp;single&nbsp;string&nbsp;with&nbsp;no<br>
+#&nbsp;trailing&nbsp;CRLF.&nbsp;&nbsp;If&nbsp;the&nbsp;response&nbsp;consists&nbsp;of&nbsp;multiple&nbsp;lines,<br>
+#&nbsp;these&nbsp;are&nbsp;separated&nbsp;by&nbsp;'\n'&nbsp;characters&nbsp;in&nbsp;the&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="FTP-getresp"><strong>getresp</strong></a>(self)</dt><dd><tt>#&nbsp;Internal:&nbsp;get&nbsp;a&nbsp;response&nbsp;from&nbsp;the&nbsp;server.<br>
+#&nbsp;Raise&nbsp;various&nbsp;errors&nbsp;if&nbsp;the&nbsp;response&nbsp;indicates&nbsp;an&nbsp;error</tt></dd></dl>
+
+<dl><dt><a name="FTP-getwelcome"><strong>getwelcome</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;welcome&nbsp;message&nbsp;from&nbsp;the&nbsp;server.<br>
+(this&nbsp;is&nbsp;read&nbsp;and&nbsp;squirreled&nbsp;away&nbsp;by&nbsp;<a href="#FTP-connect">connect</a>())</tt></dd></dl>
+
+<dl><dt><a name="FTP-login"><strong>login</strong></a>(self, user<font color="#909090">=''</font>, passwd<font color="#909090">=''</font>, acct<font color="#909090">=''</font>)</dt><dd><tt>Login,&nbsp;default&nbsp;anonymous.</tt></dd></dl>
+
+<dl><dt><a name="FTP-makepasv"><strong>makepasv</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FTP-makeport"><strong>makeport</strong></a>(self)</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;socket&nbsp;and&nbsp;send&nbsp;a&nbsp;PORT&nbsp;command&nbsp;for&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="FTP-mkd"><strong>mkd</strong></a>(self, dirname)</dt><dd><tt>Make&nbsp;a&nbsp;directory,&nbsp;return&nbsp;its&nbsp;full&nbsp;pathname.</tt></dd></dl>
+
+<dl><dt><a name="FTP-nlst"><strong>nlst</strong></a>(self, *args)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;files&nbsp;in&nbsp;a&nbsp;given&nbsp;directory&nbsp;(default&nbsp;the&nbsp;current).</tt></dd></dl>
+
+<dl><dt><a name="FTP-ntransfercmd"><strong>ntransfercmd</strong></a>(self, cmd, rest<font color="#909090">=None</font>)</dt><dd><tt>Initiate&nbsp;a&nbsp;transfer&nbsp;over&nbsp;the&nbsp;data&nbsp;connection.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;transfer&nbsp;is&nbsp;active,&nbsp;send&nbsp;a&nbsp;port&nbsp;command&nbsp;and&nbsp;the<br>
+transfer&nbsp;command,&nbsp;and&nbsp;accept&nbsp;the&nbsp;connection.&nbsp;&nbsp;If&nbsp;the&nbsp;server&nbsp;is<br>
+passive,&nbsp;send&nbsp;a&nbsp;pasv&nbsp;command,&nbsp;connect&nbsp;to&nbsp;it,&nbsp;and&nbsp;start&nbsp;the<br>
+transfer&nbsp;command.&nbsp;&nbsp;Either&nbsp;way,&nbsp;return&nbsp;the&nbsp;socket&nbsp;for&nbsp;the<br>
+connection&nbsp;and&nbsp;the&nbsp;expected&nbsp;size&nbsp;of&nbsp;the&nbsp;transfer.&nbsp;&nbsp;The<br>
+expected&nbsp;size&nbsp;may&nbsp;be&nbsp;None&nbsp;if&nbsp;it&nbsp;could&nbsp;not&nbsp;be&nbsp;determined.<br>
+&nbsp;<br>
+Optional&nbsp;`rest'&nbsp;argument&nbsp;can&nbsp;be&nbsp;a&nbsp;string&nbsp;that&nbsp;is&nbsp;sent&nbsp;as&nbsp;the<br>
+argument&nbsp;to&nbsp;a&nbsp;REST&nbsp;command.&nbsp;&nbsp;This&nbsp;is&nbsp;essentially&nbsp;a&nbsp;server<br>
+marker&nbsp;used&nbsp;to&nbsp;tell&nbsp;the&nbsp;server&nbsp;to&nbsp;skip&nbsp;over&nbsp;any&nbsp;data&nbsp;up&nbsp;to&nbsp;the<br>
+given&nbsp;marker.</tt></dd></dl>
+
+<dl><dt><a name="FTP-putcmd"><strong>putcmd</strong></a>(self, line)</dt><dd><tt>#&nbsp;Internal:&nbsp;send&nbsp;one&nbsp;command&nbsp;to&nbsp;the&nbsp;server&nbsp;(through&nbsp;<a href="#FTP-putline">putline</a>())</tt></dd></dl>
+
+<dl><dt><a name="FTP-putline"><strong>putline</strong></a>(self, line)</dt><dd><tt>#&nbsp;Internal:&nbsp;send&nbsp;one&nbsp;line&nbsp;to&nbsp;the&nbsp;server,&nbsp;appending&nbsp;CRLF</tt></dd></dl>
+
+<dl><dt><a name="FTP-pwd"><strong>pwd</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;working&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="FTP-quit"><strong>quit</strong></a>(self)</dt><dd><tt>Quit,&nbsp;and&nbsp;close&nbsp;the&nbsp;connection.</tt></dd></dl>
+
+<dl><dt><a name="FTP-rename"><strong>rename</strong></a>(self, fromname, toname)</dt><dd><tt>Rename&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="FTP-retrbinary"><strong>retrbinary</strong></a>(self, cmd, callback, blocksize<font color="#909090">=8192</font>, rest<font color="#909090">=None</font>)</dt><dd><tt>Retrieve&nbsp;data&nbsp;in&nbsp;binary&nbsp;mode.&nbsp;&nbsp;A&nbsp;new&nbsp;port&nbsp;is&nbsp;created&nbsp;for&nbsp;you.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;cmd:&nbsp;A&nbsp;RETR&nbsp;command.<br>
+&nbsp;&nbsp;callback:&nbsp;A&nbsp;single&nbsp;parameter&nbsp;callable&nbsp;to&nbsp;be&nbsp;called&nbsp;on&nbsp;each<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;block&nbsp;of&nbsp;data&nbsp;read.<br>
+&nbsp;&nbsp;blocksize:&nbsp;The&nbsp;maximum&nbsp;number&nbsp;of&nbsp;bytes&nbsp;to&nbsp;read&nbsp;from&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket&nbsp;at&nbsp;one&nbsp;time.&nbsp;&nbsp;[default:&nbsp;8192]<br>
+&nbsp;&nbsp;rest:&nbsp;Passed&nbsp;to&nbsp;<a href="#FTP-transfercmd">transfercmd</a>().&nbsp;&nbsp;[default:&nbsp;None]<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;The&nbsp;response&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="FTP-retrlines"><strong>retrlines</strong></a>(self, cmd, callback<font color="#909090">=None</font>)</dt><dd><tt>Retrieve&nbsp;data&nbsp;in&nbsp;line&nbsp;mode.&nbsp;&nbsp;A&nbsp;new&nbsp;port&nbsp;is&nbsp;created&nbsp;for&nbsp;you.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;cmd:&nbsp;A&nbsp;RETR,&nbsp;LIST,&nbsp;NLST,&nbsp;or&nbsp;MLSD&nbsp;command.<br>
+&nbsp;&nbsp;callback:&nbsp;An&nbsp;optional&nbsp;single&nbsp;parameter&nbsp;callable&nbsp;that&nbsp;is&nbsp;called<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;line&nbsp;with&nbsp;the&nbsp;trailing&nbsp;CRLF&nbsp;stripped.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[default:&nbsp;print_line()]<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;The&nbsp;response&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="FTP-rmd"><strong>rmd</strong></a>(self, dirname)</dt><dd><tt>Remove&nbsp;a&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="FTP-sanitize"><strong>sanitize</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal:&nbsp;"sanitize"&nbsp;a&nbsp;string&nbsp;for&nbsp;printing</tt></dd></dl>
+
+<dl><dt><a name="FTP-sendcmd"><strong>sendcmd</strong></a>(self, cmd)</dt><dd><tt>Send&nbsp;a&nbsp;command&nbsp;and&nbsp;return&nbsp;the&nbsp;response.</tt></dd></dl>
+
+<dl><dt><a name="FTP-sendeprt"><strong>sendeprt</strong></a>(self, host, port)</dt><dd><tt>Send&nbsp;a&nbsp;EPRT&nbsp;command&nbsp;with&nbsp;the&nbsp;current&nbsp;host&nbsp;and&nbsp;the&nbsp;given&nbsp;port&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FTP-sendport"><strong>sendport</strong></a>(self, host, port)</dt><dd><tt>Send&nbsp;a&nbsp;PORT&nbsp;command&nbsp;with&nbsp;the&nbsp;current&nbsp;host&nbsp;and&nbsp;the&nbsp;given<br>
+port&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FTP-set_debuglevel"><strong>set_debuglevel</strong></a>(self, level)</dt><dd><tt>Set&nbsp;the&nbsp;debugging&nbsp;level.<br>
+The&nbsp;required&nbsp;argument&nbsp;level&nbsp;means:<br>
+0:&nbsp;no&nbsp;debugging&nbsp;output&nbsp;(default)<br>
+1:&nbsp;print&nbsp;commands&nbsp;and&nbsp;responses&nbsp;but&nbsp;not&nbsp;body&nbsp;text&nbsp;etc.<br>
+2:&nbsp;also&nbsp;print&nbsp;raw&nbsp;lines&nbsp;read&nbsp;and&nbsp;sent&nbsp;before&nbsp;stripping&nbsp;CR/LF</tt></dd></dl>
+
+<dl><dt><a name="FTP-set_pasv"><strong>set_pasv</strong></a>(self, val)</dt><dd><tt>Use&nbsp;passive&nbsp;or&nbsp;active&nbsp;mode&nbsp;for&nbsp;data&nbsp;transfers.<br>
+With&nbsp;a&nbsp;false&nbsp;argument,&nbsp;use&nbsp;the&nbsp;normal&nbsp;PORT&nbsp;mode,<br>
+With&nbsp;a&nbsp;true&nbsp;argument,&nbsp;use&nbsp;the&nbsp;PASV&nbsp;command.</tt></dd></dl>
+
+<dl><dt><a name="FTP-size"><strong>size</strong></a>(self, filename)</dt><dd><tt>Retrieve&nbsp;the&nbsp;size&nbsp;of&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="FTP-storbinary"><strong>storbinary</strong></a>(self, cmd, fp, blocksize<font color="#909090">=8192</font>, callback<font color="#909090">=None</font>, rest<font color="#909090">=None</font>)</dt><dd><tt>Store&nbsp;a&nbsp;file&nbsp;in&nbsp;binary&nbsp;mode.&nbsp;&nbsp;A&nbsp;new&nbsp;port&nbsp;is&nbsp;created&nbsp;for&nbsp;you.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;cmd:&nbsp;A&nbsp;STOR&nbsp;command.<br>
+&nbsp;&nbsp;fp:&nbsp;A&nbsp;file-like&nbsp;object&nbsp;with&nbsp;a&nbsp;read(num_bytes)&nbsp;method.<br>
+&nbsp;&nbsp;blocksize:&nbsp;The&nbsp;maximum&nbsp;data&nbsp;size&nbsp;to&nbsp;read&nbsp;from&nbsp;fp&nbsp;and&nbsp;send&nbsp;over<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;connection&nbsp;at&nbsp;once.&nbsp;&nbsp;[default:&nbsp;8192]<br>
+&nbsp;&nbsp;callback:&nbsp;An&nbsp;optional&nbsp;single&nbsp;parameter&nbsp;callable&nbsp;that&nbsp;is&nbsp;called&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on&nbsp;each&nbsp;block&nbsp;of&nbsp;data&nbsp;after&nbsp;it&nbsp;is&nbsp;sent.&nbsp;&nbsp;[default:&nbsp;None]<br>
+&nbsp;&nbsp;rest:&nbsp;Passed&nbsp;to&nbsp;<a href="#FTP-transfercmd">transfercmd</a>().&nbsp;&nbsp;[default:&nbsp;None]<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;The&nbsp;response&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="FTP-storlines"><strong>storlines</strong></a>(self, cmd, fp, callback<font color="#909090">=None</font>)</dt><dd><tt>Store&nbsp;a&nbsp;file&nbsp;in&nbsp;line&nbsp;mode.&nbsp;&nbsp;A&nbsp;new&nbsp;port&nbsp;is&nbsp;created&nbsp;for&nbsp;you.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;cmd:&nbsp;A&nbsp;STOR&nbsp;command.<br>
+&nbsp;&nbsp;fp:&nbsp;A&nbsp;file-like&nbsp;object&nbsp;with&nbsp;a&nbsp;readline()&nbsp;method.<br>
+&nbsp;&nbsp;callback:&nbsp;An&nbsp;optional&nbsp;single&nbsp;parameter&nbsp;callable&nbsp;that&nbsp;is&nbsp;called&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on&nbsp;each&nbsp;line&nbsp;after&nbsp;it&nbsp;is&nbsp;sent.&nbsp;&nbsp;[default:&nbsp;None]<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;The&nbsp;response&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="FTP-transfercmd"><strong>transfercmd</strong></a>(self, cmd, rest<font color="#909090">=None</font>)</dt><dd><tt>Like&nbsp;<a href="#FTP-ntransfercmd">ntransfercmd</a>()&nbsp;but&nbsp;returns&nbsp;only&nbsp;the&nbsp;socket.</tt></dd></dl>
+
+<dl><dt><a name="FTP-voidcmd"><strong>voidcmd</strong></a>(self, cmd)</dt><dd><tt>Send&nbsp;a&nbsp;command&nbsp;and&nbsp;expect&nbsp;a&nbsp;response&nbsp;beginning&nbsp;with&nbsp;'2'.</tt></dd></dl>
+
+<dl><dt><a name="FTP-voidresp"><strong>voidresp</strong></a>(self)</dt><dd><tt>Expect&nbsp;a&nbsp;response&nbsp;beginning&nbsp;with&nbsp;'2'.</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>debugging</strong> = 0</dl>
+
+<dl><dt><strong>file</strong> = None</dl>
+
+<dl><dt><strong>host</strong> = ''</dl>
+
+<dl><dt><strong>passiveserver</strong> = 1</dl>
+
+<dl><dt><strong>port</strong> = 21</dl>
+
+<dl><dt><strong>sock</strong> = None</dl>
+
+<dl><dt><strong>welcome</strong> = None</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FTP_TLS">class <strong>FTP_TLS</strong></a>(<a href="ftplib.html#FTP">FTP</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;<a href="#FTP">FTP</a>&nbsp;subclass&nbsp;which&nbsp;adds&nbsp;TLS&nbsp;support&nbsp;to&nbsp;<a href="#FTP">FTP</a>&nbsp;as&nbsp;described<br>
+in&nbsp;<a href="http://www.rfc-editor.org/rfc/rfc4217.txt">RFC-4217</a>.<br>
+&nbsp;<br>
+Connect&nbsp;as&nbsp;usual&nbsp;to&nbsp;port&nbsp;21&nbsp;implicitly&nbsp;securing&nbsp;the&nbsp;<a href="#FTP">FTP</a>&nbsp;control<br>
+connection&nbsp;before&nbsp;authenticating.<br>
+&nbsp;<br>
+Securing&nbsp;the&nbsp;data&nbsp;connection&nbsp;requires&nbsp;user&nbsp;to&nbsp;explicitly&nbsp;ask<br>
+for&nbsp;it&nbsp;by&nbsp;calling&nbsp;<a href="#FTP_TLS-prot_p">prot_p</a>()&nbsp;method.<br>
+&nbsp;<br>
+Usage&nbsp;example:<br>
+&gt;&gt;&gt;&nbsp;from&nbsp;ftplib&nbsp;import&nbsp;<a href="#FTP_TLS">FTP_TLS</a><br>
+&gt;&gt;&gt;&nbsp;ftps&nbsp;=&nbsp;<a href="#FTP_TLS">FTP_TLS</a>('ftp.python.org')<br>
+&gt;&gt;&gt;&nbsp;ftps.<a href="#FTP_TLS-login">login</a>()&nbsp;&nbsp;#&nbsp;login&nbsp;anonymously&nbsp;previously&nbsp;securing&nbsp;control&nbsp;channel<br>
+'230&nbsp;Guest&nbsp;login&nbsp;ok,&nbsp;access&nbsp;restrictions&nbsp;apply.'<br>
+&gt;&gt;&gt;&nbsp;ftps.<a href="#FTP_TLS-prot_p">prot_p</a>()&nbsp;&nbsp;#&nbsp;switch&nbsp;to&nbsp;secure&nbsp;data&nbsp;connection<br>
+'200&nbsp;Protection&nbsp;level&nbsp;set&nbsp;to&nbsp;P'<br>
+&gt;&gt;&gt;&nbsp;ftps.<a href="#FTP_TLS-retrlines">retrlines</a>('LIST')&nbsp;&nbsp;#&nbsp;list&nbsp;directory&nbsp;content&nbsp;securely<br>
+total&nbsp;9<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;8&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;.<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;8&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;..<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;2&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;bin<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;2&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;etc<br>
+d-wxrwxr-x&nbsp;&nbsp;&nbsp;2&nbsp;ftp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Sep&nbsp;&nbsp;5&nbsp;13:43&nbsp;incoming<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;2&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Nov&nbsp;17&nbsp;&nbsp;1993&nbsp;lib<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;6&nbsp;1094&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Sep&nbsp;13&nbsp;19:07&nbsp;pub<br>
+drwxr-xr-x&nbsp;&nbsp;&nbsp;3&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wheel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1024&nbsp;Jan&nbsp;&nbsp;3&nbsp;&nbsp;1994&nbsp;usr<br>
+-rw-r--r--&nbsp;&nbsp;&nbsp;1&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;312&nbsp;Aug&nbsp;&nbsp;1&nbsp;&nbsp;1994&nbsp;welcome.msg<br>
+'226&nbsp;Transfer&nbsp;complete.'<br>
+&gt;&gt;&gt;&nbsp;ftps.<a href="#FTP_TLS-quit">quit</a>()<br>
+'221&nbsp;Goodbye.'<br>
+&gt;&gt;&gt;<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FTP_TLS-__init__"><strong>__init__</strong></a>(self, host<font color="#909090">=''</font>, user<font color="#909090">=''</font>, passwd<font color="#909090">=''</font>, acct<font color="#909090">=''</font>, keyfile<font color="#909090">=None</font>, certfile<font color="#909090">=None</font>, timeout<font color="#909090">=&lt;object object&gt;</font>)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-auth"><strong>auth</strong></a>(self)</dt><dd><tt>Set&nbsp;up&nbsp;secure&nbsp;control&nbsp;connection&nbsp;by&nbsp;using&nbsp;TLS/SSL.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-login"><strong>login</strong></a>(self, user<font color="#909090">=''</font>, passwd<font color="#909090">=''</font>, acct<font color="#909090">=''</font>, secure<font color="#909090">=True</font>)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-ntransfercmd"><strong>ntransfercmd</strong></a>(self, cmd, rest<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-prot_c"><strong>prot_c</strong></a>(self)</dt><dd><tt>Set&nbsp;up&nbsp;clear&nbsp;text&nbsp;data&nbsp;connection.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-prot_p"><strong>prot_p</strong></a>(self)</dt><dd><tt>Set&nbsp;up&nbsp;secure&nbsp;data&nbsp;connection.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-retrbinary"><strong>retrbinary</strong></a>(self, cmd, callback, blocksize<font color="#909090">=8192</font>, rest<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-retrlines"><strong>retrlines</strong></a>(self, cmd, callback<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-storbinary"><strong>storbinary</strong></a>(self, cmd, fp, blocksize<font color="#909090">=8192</font>, callback<font color="#909090">=None</font>, rest<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-storlines"><strong>storlines</strong></a>(self, cmd, fp, callback<font color="#909090">=None</font>)</dt></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>ssl_version</strong> = 3</dl>
+
+<hr>
+Methods inherited from <a href="ftplib.html#FTP">FTP</a>:<br>
+<dl><dt><a name="FTP_TLS-abort"><strong>abort</strong></a>(self)</dt><dd><tt>Abort&nbsp;a&nbsp;file&nbsp;transfer.&nbsp;&nbsp;Uses&nbsp;out-of-band&nbsp;data.<br>
+This&nbsp;does&nbsp;not&nbsp;follow&nbsp;the&nbsp;procedure&nbsp;from&nbsp;the&nbsp;RFC&nbsp;to&nbsp;send&nbsp;Telnet<br>
+IP&nbsp;and&nbsp;Synch;&nbsp;that&nbsp;doesn't&nbsp;seem&nbsp;to&nbsp;work&nbsp;with&nbsp;the&nbsp;servers&nbsp;I've<br>
+tried.&nbsp;&nbsp;Instead,&nbsp;just&nbsp;send&nbsp;the&nbsp;ABOR&nbsp;command&nbsp;as&nbsp;OOB&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-acct"><strong>acct</strong></a>(self, password)</dt><dd><tt>Send&nbsp;new&nbsp;account&nbsp;name.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;the&nbsp;connection&nbsp;without&nbsp;assuming&nbsp;anything&nbsp;about&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-connect"><strong>connect</strong></a>(self, host<font color="#909090">=''</font>, port<font color="#909090">=0</font>, timeout<font color="#909090">=-999</font>)</dt><dd><tt>Connect&nbsp;to&nbsp;host.&nbsp;&nbsp;Arguments&nbsp;are:<br>
+-&nbsp;host:&nbsp;hostname&nbsp;to&nbsp;connect&nbsp;to&nbsp;(string,&nbsp;default&nbsp;previous&nbsp;host)<br>
+-&nbsp;port:&nbsp;port&nbsp;to&nbsp;connect&nbsp;to&nbsp;(integer,&nbsp;default&nbsp;previous&nbsp;port)</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-cwd"><strong>cwd</strong></a>(self, dirname)</dt><dd><tt>Change&nbsp;to&nbsp;a&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-debug"><strong>debug</strong></a> = set_debuglevel(self, level)</dt><dd><tt>Set&nbsp;the&nbsp;debugging&nbsp;level.<br>
+The&nbsp;required&nbsp;argument&nbsp;level&nbsp;means:<br>
+0:&nbsp;no&nbsp;debugging&nbsp;output&nbsp;(default)<br>
+1:&nbsp;print&nbsp;commands&nbsp;and&nbsp;responses&nbsp;but&nbsp;not&nbsp;body&nbsp;text&nbsp;etc.<br>
+2:&nbsp;also&nbsp;print&nbsp;raw&nbsp;lines&nbsp;read&nbsp;and&nbsp;sent&nbsp;before&nbsp;stripping&nbsp;CR/LF</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-delete"><strong>delete</strong></a>(self, filename)</dt><dd><tt>Delete&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-dir"><strong>dir</strong></a>(self, *args)</dt><dd><tt>List&nbsp;a&nbsp;directory&nbsp;in&nbsp;long&nbsp;form.<br>
+By&nbsp;default&nbsp;list&nbsp;current&nbsp;directory&nbsp;to&nbsp;stdout.<br>
+Optional&nbsp;last&nbsp;argument&nbsp;is&nbsp;callback&nbsp;function;&nbsp;all<br>
+non-empty&nbsp;arguments&nbsp;before&nbsp;it&nbsp;are&nbsp;concatenated&nbsp;to&nbsp;the<br>
+LIST&nbsp;command.&nbsp;&nbsp;(This&nbsp;*should*&nbsp;only&nbsp;be&nbsp;used&nbsp;for&nbsp;a&nbsp;pathname.)</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-getline"><strong>getline</strong></a>(self)</dt><dd><tt>#&nbsp;Internal:&nbsp;return&nbsp;one&nbsp;line&nbsp;from&nbsp;the&nbsp;server,&nbsp;stripping&nbsp;CRLF.<br>
+#&nbsp;Raise&nbsp;EOFError&nbsp;if&nbsp;the&nbsp;connection&nbsp;is&nbsp;closed</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-getmultiline"><strong>getmultiline</strong></a>(self)</dt><dd><tt>#&nbsp;Internal:&nbsp;get&nbsp;a&nbsp;response&nbsp;from&nbsp;the&nbsp;server,&nbsp;which&nbsp;may&nbsp;possibly<br>
+#&nbsp;consist&nbsp;of&nbsp;multiple&nbsp;lines.&nbsp;&nbsp;Return&nbsp;a&nbsp;single&nbsp;string&nbsp;with&nbsp;no<br>
+#&nbsp;trailing&nbsp;CRLF.&nbsp;&nbsp;If&nbsp;the&nbsp;response&nbsp;consists&nbsp;of&nbsp;multiple&nbsp;lines,<br>
+#&nbsp;these&nbsp;are&nbsp;separated&nbsp;by&nbsp;'\n'&nbsp;characters&nbsp;in&nbsp;the&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-getresp"><strong>getresp</strong></a>(self)</dt><dd><tt>#&nbsp;Internal:&nbsp;get&nbsp;a&nbsp;response&nbsp;from&nbsp;the&nbsp;server.<br>
+#&nbsp;Raise&nbsp;various&nbsp;errors&nbsp;if&nbsp;the&nbsp;response&nbsp;indicates&nbsp;an&nbsp;error</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-getwelcome"><strong>getwelcome</strong></a>(self)</dt><dd><tt>Get&nbsp;the&nbsp;welcome&nbsp;message&nbsp;from&nbsp;the&nbsp;server.<br>
+(this&nbsp;is&nbsp;read&nbsp;and&nbsp;squirreled&nbsp;away&nbsp;by&nbsp;<a href="#FTP_TLS-connect">connect</a>())</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-makepasv"><strong>makepasv</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="FTP_TLS-makeport"><strong>makeport</strong></a>(self)</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;socket&nbsp;and&nbsp;send&nbsp;a&nbsp;PORT&nbsp;command&nbsp;for&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-mkd"><strong>mkd</strong></a>(self, dirname)</dt><dd><tt>Make&nbsp;a&nbsp;directory,&nbsp;return&nbsp;its&nbsp;full&nbsp;pathname.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-nlst"><strong>nlst</strong></a>(self, *args)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;files&nbsp;in&nbsp;a&nbsp;given&nbsp;directory&nbsp;(default&nbsp;the&nbsp;current).</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-putcmd"><strong>putcmd</strong></a>(self, line)</dt><dd><tt>#&nbsp;Internal:&nbsp;send&nbsp;one&nbsp;command&nbsp;to&nbsp;the&nbsp;server&nbsp;(through&nbsp;<a href="#FTP_TLS-putline">putline</a>())</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-putline"><strong>putline</strong></a>(self, line)</dt><dd><tt>#&nbsp;Internal:&nbsp;send&nbsp;one&nbsp;line&nbsp;to&nbsp;the&nbsp;server,&nbsp;appending&nbsp;CRLF</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-pwd"><strong>pwd</strong></a>(self)</dt><dd><tt>Return&nbsp;current&nbsp;working&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-quit"><strong>quit</strong></a>(self)</dt><dd><tt>Quit,&nbsp;and&nbsp;close&nbsp;the&nbsp;connection.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-rename"><strong>rename</strong></a>(self, fromname, toname)</dt><dd><tt>Rename&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-rmd"><strong>rmd</strong></a>(self, dirname)</dt><dd><tt>Remove&nbsp;a&nbsp;directory.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-sanitize"><strong>sanitize</strong></a>(self, s)</dt><dd><tt>#&nbsp;Internal:&nbsp;"sanitize"&nbsp;a&nbsp;string&nbsp;for&nbsp;printing</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-sendcmd"><strong>sendcmd</strong></a>(self, cmd)</dt><dd><tt>Send&nbsp;a&nbsp;command&nbsp;and&nbsp;return&nbsp;the&nbsp;response.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-sendeprt"><strong>sendeprt</strong></a>(self, host, port)</dt><dd><tt>Send&nbsp;a&nbsp;EPRT&nbsp;command&nbsp;with&nbsp;the&nbsp;current&nbsp;host&nbsp;and&nbsp;the&nbsp;given&nbsp;port&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-sendport"><strong>sendport</strong></a>(self, host, port)</dt><dd><tt>Send&nbsp;a&nbsp;PORT&nbsp;command&nbsp;with&nbsp;the&nbsp;current&nbsp;host&nbsp;and&nbsp;the&nbsp;given<br>
+port&nbsp;number.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-set_debuglevel"><strong>set_debuglevel</strong></a>(self, level)</dt><dd><tt>Set&nbsp;the&nbsp;debugging&nbsp;level.<br>
+The&nbsp;required&nbsp;argument&nbsp;level&nbsp;means:<br>
+0:&nbsp;no&nbsp;debugging&nbsp;output&nbsp;(default)<br>
+1:&nbsp;print&nbsp;commands&nbsp;and&nbsp;responses&nbsp;but&nbsp;not&nbsp;body&nbsp;text&nbsp;etc.<br>
+2:&nbsp;also&nbsp;print&nbsp;raw&nbsp;lines&nbsp;read&nbsp;and&nbsp;sent&nbsp;before&nbsp;stripping&nbsp;CR/LF</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-set_pasv"><strong>set_pasv</strong></a>(self, val)</dt><dd><tt>Use&nbsp;passive&nbsp;or&nbsp;active&nbsp;mode&nbsp;for&nbsp;data&nbsp;transfers.<br>
+With&nbsp;a&nbsp;false&nbsp;argument,&nbsp;use&nbsp;the&nbsp;normal&nbsp;PORT&nbsp;mode,<br>
+With&nbsp;a&nbsp;true&nbsp;argument,&nbsp;use&nbsp;the&nbsp;PASV&nbsp;command.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-size"><strong>size</strong></a>(self, filename)</dt><dd><tt>Retrieve&nbsp;the&nbsp;size&nbsp;of&nbsp;a&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-transfercmd"><strong>transfercmd</strong></a>(self, cmd, rest<font color="#909090">=None</font>)</dt><dd><tt>Like&nbsp;<a href="#FTP_TLS-ntransfercmd">ntransfercmd</a>()&nbsp;but&nbsp;returns&nbsp;only&nbsp;the&nbsp;socket.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-voidcmd"><strong>voidcmd</strong></a>(self, cmd)</dt><dd><tt>Send&nbsp;a&nbsp;command&nbsp;and&nbsp;expect&nbsp;a&nbsp;response&nbsp;beginning&nbsp;with&nbsp;'2'.</tt></dd></dl>
+
+<dl><dt><a name="FTP_TLS-voidresp"><strong>voidresp</strong></a>(self)</dt><dd><tt>Expect&nbsp;a&nbsp;response&nbsp;beginning&nbsp;with&nbsp;'2'.</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="ftplib.html#FTP">FTP</a>:<br>
+<dl><dt><strong>debugging</strong> = 0</dl>
+
+<dl><dt><strong>file</strong> = None</dl>
+
+<dl><dt><strong>host</strong> = ''</dl>
+
+<dl><dt><strong>passiveserver</strong> = 1</dl>
+
+<dl><dt><strong>port</strong> = 21</dl>
+
+<dl><dt><strong>sock</strong> = None</dl>
+
+<dl><dt><strong>welcome</strong> = None</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Netrc">class <strong>Netrc</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;to&nbsp;parse&nbsp;&amp;&nbsp;provide&nbsp;access&nbsp;to&nbsp;'netrc'&nbsp;format&nbsp;files.<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;netrc(4)&nbsp;man&nbsp;page&nbsp;for&nbsp;information&nbsp;on&nbsp;the&nbsp;file&nbsp;format.<br>
+&nbsp;<br>
+WARNING:&nbsp;This&nbsp;class&nbsp;is&nbsp;obsolete&nbsp;--&nbsp;use&nbsp;module&nbsp;netrc&nbsp;instead.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Netrc-__init__"><strong>__init__</strong></a>(self, filename<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="Netrc-get_account"><strong>get_account</strong></a>(self, host)</dt><dd><tt>Returns&nbsp;login&nbsp;information&nbsp;for&nbsp;the&nbsp;named&nbsp;host.<br>
+&nbsp;<br>
+The&nbsp;return&nbsp;value&nbsp;is&nbsp;a&nbsp;triple&nbsp;containing&nbsp;userid,<br>
+password,&nbsp;and&nbsp;the&nbsp;accounting&nbsp;field.</tt></dd></dl>
+
+<dl><dt><a name="Netrc-get_hosts"><strong>get_hosts</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;hosts&nbsp;mentioned&nbsp;in&nbsp;the&nbsp;.netrc&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="Netrc-get_macro"><strong>get_macro</strong></a>(self, macro)</dt><dd><tt>Return&nbsp;a&nbsp;sequence&nbsp;of&nbsp;lines&nbsp;which&nbsp;define&nbsp;a&nbsp;named&nbsp;macro.</tt></dd></dl>
+
+<dl><dt><a name="Netrc-get_macros"><strong>get_macros</strong></a>(self)</dt><dd><tt>Return&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;defined&nbsp;macro&nbsp;names.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__all__</strong> = ['FTP', 'Netrc', 'FTP_TLS']</td></tr></table>
+</body></html>
