@@ -1,5 +1,11 @@
 import os, sys, string, random
-from tkinter import *
+
+# Tkinter in Python 2X and tkinter in Python 3X
+if sys.version.startswith('2'):
+    from Tkinter import *
+else:
+    from tkinter import *
+
 from enigma import Enigma
 
 class GUI(Enigma):
@@ -40,31 +46,31 @@ class GUI(Enigma):
         root.bind("<Key-m>", self.on_M)
         root.bind("<Key-l>", self.on_L)
         self.command_mapping = { 'Q': self.on_Q,
-                            'W': self.on_W,
-                            'E': self.on_E,
-                            'R': self.on_R,
-                            'T': self.on_T,
-                            'Z': self.on_Z,
-                            'U': self.on_U,
-                            'I': self.on_I,
-                            'O': self.on_O,
-                            'A': self.on_A,
-                            'S': self.on_S,
-                            'D': self.on_D,
-                            'F': self.on_F,
-                            'G': self.on_G,
-                            'H': self.on_H,
-                            'J': self.on_J,
-                            'K': self.on_K,
-                            'P': self.on_P,
-                            'Y': self.on_Y,
-                            'X': self.on_X,
-                            'C': self.on_C,
-                            'V': self.on_V,
-                            'B': self.on_B,
-                            'N': self.on_N,
-                            'M': self.on_M,
-                            'L': self.on_L}
+                                 'W': self.on_W,
+                                 'E': self.on_E,
+                                 'R': self.on_R,
+                                 'T': self.on_T,
+                                 'Z': self.on_Z,
+                                 'U': self.on_U,
+                                 'I': self.on_I,
+                                 'O': self.on_O,
+                                 'A': self.on_A,
+                                 'S': self.on_S,
+                                 'D': self.on_D,
+                                 'F': self.on_F,
+                                 'G': self.on_G,
+                                 'H': self.on_H,
+                                 'J': self.on_J,
+                                 'K': self.on_K,
+                                 'P': self.on_P,
+                                 'Y': self.on_Y,
+                                 'X': self.on_X,
+                                 'C': self.on_C,
+                                 'V': self.on_V,
+                                 'B': self.on_B,
+                                 'N': self.on_N,
+                                 'M': self.on_M,
+                                 'L': self.on_L }
         self.make_widgets()
 
         self.Q_light = Label(self.lightboard, bg='black', fg='black', font=self.font,
@@ -152,8 +158,6 @@ class GUI(Enigma):
                 x.after(250)
                 x.fg = 'black'
               
-            
-
     def make_keyboard(self):
         font = ('courier', 14, 'bold')
         self.keyboard = Frame(height=150, width=300, bd=1, relief=RAISED,
@@ -186,6 +190,8 @@ class GUI(Enigma):
         self.cipher_message = self.cipher_message + self.encrypt('Q')
         self.var.set(self.cipher_message)
         self.update_rotor_display()
+        # raises error cannot cat 'str' and 'int'
+        # self.flash(self.cipher_message[-1]) 
     def on_W(self, event):
         self.cipher_message = self.cipher_message + self.encrypt('W')
         self.var.set(self.cipher_message)
@@ -374,9 +380,9 @@ class GUI(Enigma):
     ###########################################################################
 
     def get_rotor_value(self, rotor):
-        if rotor not in self.rotor_indicies.keys():
+        if rotor not in self.rotor_indices.keys():
             return
-        index = self.rotor_indicies[rotor]+1
+        index = self.rotor_indices[rotor]+1
         if index >= 27:
             index = 1
         for symbol in self.symbol_values:

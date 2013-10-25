@@ -1,14 +1,13 @@
 import os, sys, string, random
 
-
 class Enigma:
     def __init__(self):
         self.symbol_values   = {}
         self.encryption_keys = {}
         self.get_symbol_values()
-        self.rotor_indicies = {}
+        self.rotor_indices = {}
         for i in range(1, 4):
-            self.rotor_indicies[i] = random.choice(range(1, 27))            
+            self.rotor_indices[i] = random.choice(range(1, 27))            
         self.state = None
         self.count = 1
 
@@ -16,39 +15,39 @@ class Enigma:
         """
         iterate over symbols used and assign a numeric value to each 
         symbol. These values are used as the basis for encryption and
-        decrytpion
+        decryption
         """
         symbols = enumerate(string.ascii_uppercase)
         for symbol in symbols:
-            value = list(symbol.__iter__())          # tuple of (index, symbol)
-            self.symbol_values[value[1]] = value[0]+1# dict[symbol] = index
+            value = list(symbol.__iter__())           # tuple of (index, symbol)
+            self.symbol_values[value[1]] = value[0]+1 # dict[symbol] = index
 
-    def update_rotor_indicies(self):
+    def update_rotor_indices(self):
         """
-        stimulate the cylcing of the rotor indicies by updating
+        simulate the cycling of the rotor indices by updating
         after each key press.
         """
         # update rotor 3
-        if self.count % 138 == 0:
-            self.rotor_indicies[3] += 1
+        if self.count % 100 == 0:
+            self.rotor_indices[3] += 1
 
         # update rotor 2
-        if self.rotor_indicies[1] % 23 == 0:
-            self.rotor_indicies[2] += 1
+        if self.rotor_indices[1] % 10 == 0:
+            self.rotor_indices[2] += 1
             
         # update rotor 1
-        self.rotor_indicies[1] += 1
+        self.rotor_indices[1] += 1
         self.count += 1
 
         # if any rotor has completed a 'cycle' then update
-        for i in range(len(self.rotor_indicies.keys())):
-            if self.rotor_indicies[i+1] > 26:
-                self.rotor_indicies[i+1] = 1
+        for i in range(len(self.rotor_indices.keys())):
+            if self.rotor_indices[i+1] > 26:
+                self.rotor_indices[i+1] = 1
 
 
     def encrypt(self, message):
         enc =  self.cipher(self.cipher(self.cipher(message, 1), 2), 3)
-        self.update_rotor_indicies()
+        self.update_rotor_indices()
         return str(enc)
     
     
@@ -60,7 +59,7 @@ class Enigma:
         encrypted_message = ''
         for symbol in message:
             value         = self.symbol_values[symbol]
-            encrypted_key = value + self.rotor_indicies[index]
+            encrypted_key = value + self.rotor_indices[index]
             if encrypted_key > 26:
                 #print(encrypted_key, end= ' ')
                 encrypted_key = encrypted_key - 26
@@ -68,14 +67,14 @@ class Enigma:
             for element in self.symbol_values:
                 if self.symbol_values[element] == encrypted_key:
                     encrypted_symbol = element
-            # update rotor indicies went here
+            # update rotor indices went here
             encrypted_message = encrypted_message + encrypted_symbol         
         return encrypted_message
 
     def decrypt(self, encrypted_message, index):
         """
         msg must be a variable of type str. To successfully decrypt,
-        must manually input the rotor indicies which the message
+        must manually input the rotor indices which the message
         was started when it was first encrypted.
         """
         self.state = 'decryption'
